@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqlflitetodo/core/app_pallete.dart';
 import '../providers/theme_provider.dart';
 import '../view_models/task_view_model.dart';
 import '../models/task.dart';
@@ -62,6 +63,19 @@ class HomePage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: ListTile(
+                    leading: Container(
+                      width:
+                          24, // Increased width to accommodate larger numbers
+                      height: 24,
+                      alignment: Alignment.center,
+                      child: Text(
+                        '${taskViewModel.tasks.indexOf(task) + 1}', // Use indexOf instead of index
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          color: Theme.of(context).textTheme.bodyLarge?.color,
+                        ),
+                      ),
+                    ),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 6,
