@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       builder: (context, themeProvider, _) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Todo App',
+          title: 'Taskenhanz App',
           theme: themeProvider.currentTheme,
           home: const SplashScreen(),
           builder: (context, child) {

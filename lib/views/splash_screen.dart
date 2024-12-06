@@ -95,10 +95,14 @@ class SplashScreenState extends State<SplashScreen>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        FlutterLogo(size: logoSize),
+        Image.asset(
+          'assets/icon/l.png', // Path to your app icon
+          width: logoSize,
+          height: logoSize,
+        ),
         SizedBox(height: spacing),
         Text(
-          'Todo App',
+          'Taskenhanz App',
           style: TextStyle(
             fontSize: titleSize,
             fontWeight: FontWeight.bold,
