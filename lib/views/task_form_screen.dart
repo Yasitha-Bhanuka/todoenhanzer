@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqlflitetodo/core/responsive.dart';
 import 'package:sqlflitetodo/views/widget/custom_button.dart';
 import 'package:sqlflitetodo/views/widget/custom_field.dart';
 import '../models/task.dart';
@@ -45,38 +46,64 @@ class TaskFormScreenState extends State<TaskFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    // Responsive sizes
+    final padding = size.width * 0.04;
+    final titleFontSize = size.width * 0.045;
+    final spacing = size.height * 0.025;
+    final formWidth = Responsive.isDesktop(context)
+        ? size.width * 0.4
+        : Responsive.isTablet(context)
+            ? size.width * 0.6
+            : size.width * 0.9;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.task == null ? 'Add Task' : 'Edit Task'),
+        title: Text(
+          widget.task == null ? 'Add Task' : 'Edit Task',
+          style: TextStyle(fontSize: titleFontSize),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomField(
-                hintText: 'Task Content',
-                controller: _contentController,
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomCancelButton(
-                      buttonText: "Cancel",
-                      onTap: () => Navigator.pop(context)),
-                  const SizedBox(
-                    width: 3,
+      body: Center(
+        child: Container(
+          width: formWidth,
+          padding: EdgeInsets.all(padding),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AspectRatio(
+                  aspectRatio: Responsive.isDesktop(context) ? 6 : 4,
+                  child: CustomField(
+                    hintText: 'Task Content',
+                    controller: _contentController,
                   ),
-                  CustomSaveButton(
-                    buttonText: "Save",
-                    onTap: () => _saveTask(),
-                  ),
-                ],
-              ),
-            ],
+                ),
+                SizedBox(height: spacing),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: size.width * 0.25,
+                      child: CustomCancelButton(
+                        buttonText: "Cancel",
+                        onTap: () => Navigator.pop(context),
+                      ),
+                    ),
+                    SizedBox(width: size.width * 0.02),
+                    SizedBox(
+                      width: size.width * 0.25,
+                      child: CustomSaveButton(
+                        buttonText: "Save",
+                        onTap: _saveTask,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

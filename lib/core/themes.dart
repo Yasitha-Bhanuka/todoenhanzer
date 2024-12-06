@@ -26,7 +26,7 @@ final ThemeData darkTheme = ThemeData.dark().copyWith(
     headlineMedium: TextStyle(
         color: Pallete.whiteColor, fontSize: 22, fontWeight: FontWeight.w600),
     bodyLarge: TextStyle(color: Pallete.whiteColor, fontSize: 16),
-    bodyMedium: TextStyle(color: Pallete.subtitleText, fontSize: 14),
+    bodyMedium: TextStyle(color: Pallete.whiteColor, fontSize: 14),
     labelLarge: TextStyle(
         color: Pallete.gradient1, fontSize: 16, fontWeight: FontWeight.w500),
   ),
@@ -105,7 +105,7 @@ final ThemeData lightTheme = ThemeData.light().copyWith(
         fontSize: 22,
         fontWeight: FontWeight.w600),
     bodyLarge: TextStyle(color: Pallete.backgroundColor, fontSize: 16),
-    bodyMedium: TextStyle(color: Pallete.greyColor, fontSize: 14),
+    bodyMedium: TextStyle(color: Pallete.backgroundColor, fontSize: 14),
     labelLarge: TextStyle(
         color: Pallete.gradient2, fontSize: 16, fontWeight: FontWeight.w500),
   ),
