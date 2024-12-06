@@ -1,9 +1,7 @@
-// widgets/task_list.dart
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sqlflitetodo/core/app_pallete.dart';
-import 'package:sqlflitetodo/core/responsive.dart';
+import 'package:sqlflitetodo/theme/app_pallete.dart';
+import 'package:sqlflitetodo/theme/responsive.dart';
 import 'package:sqlflitetodo/models/task.dart';
 import 'package:sqlflitetodo/view_models/task_view_model.dart';
 import 'package:sqlflitetodo/views/home/task_form_screen.dart';

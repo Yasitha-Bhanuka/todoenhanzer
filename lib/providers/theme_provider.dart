@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqlflitetodo/core/themes.dart';
+import 'package:sqlflitetodo/theme/themes.dart';
 
 class ThemeProvider extends ChangeNotifier {
   static const String _themePreferenceKey = 'isDarkMode';

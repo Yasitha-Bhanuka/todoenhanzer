@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sqlflitetodo/core/app_pallete.dart';
+import 'package:sqlflitetodo/theme/app_pallete.dart';
 
 final ThemeData darkTheme = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: Pallete.backgroundColor,

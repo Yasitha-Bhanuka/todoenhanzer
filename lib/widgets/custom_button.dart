@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sqlflitetodo/core/app_pallete.dart';
-import 'package:sqlflitetodo/core/responsive.dart';
+import 'package:sqlflitetodo/theme/app_pallete.dart';
+import 'package:sqlflitetodo/theme/responsive.dart';
 
 class CustomSaveButton extends StatelessWidget {
   final String buttonText;

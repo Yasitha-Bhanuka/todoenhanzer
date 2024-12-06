@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sqlflitetodo/core/responsive.dart';
+import 'package:sqlflitetodo/theme/responsive.dart';
 import 'package:sqlflitetodo/widgets/custom_button.dart';
 import 'package:sqlflitetodo/widgets/custom_field.dart';
 import '../../models/task.dart';
