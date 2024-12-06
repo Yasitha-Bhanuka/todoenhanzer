@@ -61,9 +61,9 @@ class HomePageState extends State<HomePage> {
 
                 String displayText;
                 if (totalTasks == 0) {
-                  displayText = 'Touch the below plus button';
+                  displayText = 'Touch the below plus button 👇';
                 } else if (incompleteTasks == 0) {
-                  displayText = 'All tasks are completed!!!';
+                  displayText = 'All tasks are completed!!! 😍🎊';
                   _confettiController.play();
                 } else {
                   displayText =
@@ -185,6 +185,8 @@ class HomePageState extends State<HomePage> {
                                               decoration: task.status == 1
                                                   ? TextDecoration.lineThrough
                                                   : TextDecoration.none,
+                                              decorationThickness:
+                                                  2.0, // Increase the thickness of the line
                                               decorationColor: task.status == 1
                                                   ? Pallete.greenColor
                                                   : null,
