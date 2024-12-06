@@ -167,7 +167,7 @@ class HomePage extends StatelessWidget {
                                           ? Icons.delete
                                           : Icons.edit,
                                       color: Theme.of(context).iconTheme.color,
-                                      size: iconSize * 0.8,
+                                      size: iconSize * 1,
                                     ),
                                     onPressed: () {
                                       if (task.status == 1) {
@@ -184,7 +184,7 @@ class HomePage extends StatelessWidget {
                                     },
                                   ),
                                   Transform.scale(
-                                    scale: size.width * 0.002,
+                                    scale: size.width * 0.0028,
                                     child: Checkbox(
                                       value: task.status == 1,
                                       onChanged: (value) =>
