@@ -2,13 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlflitetodo/core/app_pallete.dart';
 import 'package:sqlflitetodo/core/responsive.dart';
+import 'package:confetti/confetti.dart';
 import '../providers/theme_provider.dart';
 import '../view_models/task_view_model.dart';
 import '../models/task.dart';
 import 'task_form_screen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  HomePageState createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  late ConfettiController _confettiController;
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 5));
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +59,19 @@ class HomePage extends StatelessWidget {
                     .where((task) => task.status == 0)
                     .length;
 
+                String displayText;
+                if (totalTasks == 0) {
+                  displayText = 'Touch the below plus button';
+                } else if (incompleteTasks == 0) {
+                  displayText = 'All tasks are completed!!!';
+                  _confettiController.play();
+                } else {
+                  displayText =
+                      'Total: $totalTasks  |  Incomplete: $incompleteTasks';
+                }
+
                 return Text(
-                  (incompleteTasks == 0 && totalTasks > 0)
-                      ? 'All tasks are completed!!!'
-                      : 'Total: $totalTasks  |  Incomplete: $incompleteTasks',
+                  displayText,
                   style: TextStyle(
                     color: Theme.of(context).textTheme.bodySmall?.color,
                     fontSize: subtitleFontSize,
@@ -80,136 +110,158 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Consumer<TaskViewModel>(
-        builder: (context, taskViewModel, child) {
-          return LayoutBuilder(
-            builder: (context, constraints) {
-              return ListView.builder(
-                padding: EdgeInsets.all(padding),
-                itemCount: taskViewModel.tasks.length,
-                itemBuilder: (context, index) {
-                  final task = taskViewModel.tasks[index];
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: padding * 0.5),
-                    child: GestureDetector(
-                      onLongPress: () => _confirmDeleteTask(context, task),
-                      child: AspectRatio(
-                        aspectRatio: Responsive.isDesktop(context)
-                            ? 8
-                            : Responsive.isTablet(context)
-                                ? 6
-                                : 4,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor,
-                            borderRadius:
-                                BorderRadius.circular(size.width * 0.03),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: size.width * 0.01,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(size.width * 0.03),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: padding,
-                                vertical: padding * 0.3,
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: size.width * 0.06,
-                                    height: size.width * 0.06,
-                                    alignment: Alignment.center,
-                                    child: FittedBox(
-                                      child: Text(
-                                        '${taskViewModel.tasks.indexOf(task) + 1}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: taskFontSize,
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.color,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: padding),
-                                  Expanded(
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        task.content,
-                                        style: TextStyle(
-                                          decoration: task.status == 1
-                                              ? TextDecoration.lineThrough
-                                              : TextDecoration.none,
-                                          decorationColor: task.status == 1
-                                              ? Pallete.greenColor
-                                              : null,
-                                          fontSize: taskFontSize,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  IconButton(
-                                    padding: EdgeInsets.only(left: padding),
-                                    icon: Icon(
-                                      task.status == 1
-                                          ? Icons.delete
-                                          : Icons.edit,
-                                      color: Theme.of(context).iconTheme.color,
-                                      size: iconSize * 1,
-                                    ),
-                                    onPressed: () {
-                                      if (task.status == 1) {
-                                        _confirmDeleteTask(context, task);
-                                      } else {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                TaskFormScreen(task: task),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                  Transform.scale(
-                                    scale: size.width * 0.0028,
-                                    child: Checkbox(
-                                      value: task.status == 1,
-                                      onChanged: (value) =>
-                                          taskViewModel.updateTaskStatus(
-                                              task, value ?? false),
-                                      activeColor:
-                                          Theme.of(context).iconTheme.color,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                    ),
+      body: Stack(
+        children: [
+          Consumer<TaskViewModel>(
+            builder: (context, taskViewModel, child) {
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  return ListView.builder(
+                    padding: EdgeInsets.all(padding),
+                    itemCount: taskViewModel.tasks.length,
+                    itemBuilder: (context, index) {
+                      final task = taskViewModel.tasks[index];
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: padding * 0.5),
+                        child: GestureDetector(
+                          onLongPress: () => _confirmDeleteTask(context, task),
+                          child: AspectRatio(
+                            aspectRatio: Responsive.isDesktop(context)
+                                ? 8
+                                : Responsive.isTablet(context)
+                                    ? 6
+                                    : 4,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).cardColor,
+                                borderRadius:
+                                    BorderRadius.circular(size.width * 0.03),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    spreadRadius: 1,
+                                    blurRadius: size.width * 0.01,
+                                    offset: const Offset(0, 3),
                                   ),
                                 ],
+                              ),
+                              child: ClipRRect(
+                                borderRadius:
+                                    BorderRadius.circular(size.width * 0.03),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: padding,
+                                    vertical: padding * 0.3,
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: size.width * 0.06,
+                                        height: size.width * 0.06,
+                                        alignment: Alignment.center,
+                                        child: FittedBox(
+                                          child: Text(
+                                            '${taskViewModel.tasks.indexOf(task) + 1}',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w900,
+                                              fontSize: taskFontSize,
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.color,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: padding),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            task.content,
+                                            style: TextStyle(
+                                              decoration: task.status == 1
+                                                  ? TextDecoration.lineThrough
+                                                  : TextDecoration.none,
+                                              decorationColor: task.status == 1
+                                                  ? Pallete.greenColor
+                                                  : null,
+                                              fontSize: taskFontSize,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        padding: EdgeInsets.only(left: padding),
+                                        icon: Icon(
+                                          task.status == 1
+                                              ? Icons.delete
+                                              : Icons.edit,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
+                                          size: iconSize * 1,
+                                        ),
+                                        onPressed: () {
+                                          if (task.status == 1) {
+                                            _confirmDeleteTask(context, task);
+                                          } else {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TaskFormScreen(task: task),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                      Transform.scale(
+                                        scale: size.width * 0.0028,
+                                        child: Checkbox(
+                                          value: task.status == 1,
+                                          onChanged: (value) =>
+                                              taskViewModel.updateTaskStatus(
+                                                  task, value ?? false),
+                                          activeColor:
+                                              Theme.of(context).iconTheme.color,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   );
                 },
               );
             },
-          );
-        },
+          ),
+          ConfettiWidget(
+            confettiController: _confettiController,
+            blastDirectionality: BlastDirectionality.explosive,
+            shouldLoop: false,
+            numberOfParticles: 50, // Increase the number of particles
+            emissionFrequency: 0.05, // Increase the emission frequency
+            colors: const [
+              Colors.red,
+              Colors.blue,
+              Colors.green,
+              Colors.yellow,
+              Colors.orange,
+              Colors.purple,
+            ],
+          ),
+        ],
       ),
     );
   }
