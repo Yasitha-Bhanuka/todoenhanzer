@@ -115,8 +115,5 @@ class ThemeProvider extends ChangeNotifier {
         return Pallete.borderColor;
       }),
     ),
-    // textTheme: const TextTheme(
-    //   bodyMedium: TextStyle(color: Colors.white),
-    // ),
   );
 }

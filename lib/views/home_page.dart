@@ -84,16 +84,23 @@ class HomePage extends StatelessWidget {
                         IconButton(
                           padding: const EdgeInsets.only(left: 20),
                           icon: Icon(
-                            Icons.edit,
+                            task.status == 1 ? Icons.delete : Icons.edit,
                             color: Theme.of(context).iconTheme.color,
                             size: 22,
                           ),
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TaskFormScreen(task: task),
-                            ),
-                          ),
+                          onPressed: () {
+                            if (task.status == 1) {
+                              _confirmDeleteTask(context, task);
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      TaskFormScreen(task: task),
+                                ),
+                              );
+                            }
+                          },
                         ),
                         Transform.scale(
                           scale: 1.1,
