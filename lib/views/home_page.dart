@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sqlflitetodo/core/app_pallete.dart';
 import 'package:sqlflitetodo/core/responsive.dart';
 import 'package:confetti/confetti.dart';
+import 'package:sqlflitetodo/views/widget/custom_button.dart';
 import '../providers/theme_provider.dart';
 import '../view_models/task_view_model.dart';
 import '../models/task.dart';
@@ -273,6 +274,9 @@ class HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(size.width * 0.03),
+        ),
         title: Text(
           'Delete Task',
           style: TextStyle(
@@ -288,29 +292,17 @@ class HomePageState extends State<HomePage> {
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              'Cancel',
-              style: TextStyle(
-                fontSize: size.width * 0.035,
-                color: Theme.of(context).textTheme.bodyLarge?.color,
-              ),
-            ),
+          CustomCancelButton(
+            buttonText: 'Cancel',
+            onTap: () => Navigator.pop(context),
           ),
-          ElevatedButton(
-            onPressed: () {
+          CustomSaveButton(
+            buttonText: 'Delete',
+            onTap: () {
               Provider.of<TaskViewModel>(context, listen: false)
                   .deleteTask(task);
               Navigator.pop(context);
             },
-            child: Text(
-              'Delete',
-              style: TextStyle(
-                fontSize: size.width * 0.035,
-                color: Theme.of(context).textTheme.bodyLarge?.color,
-              ),
-            ),
           ),
         ],
       ),
