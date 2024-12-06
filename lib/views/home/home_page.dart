@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:confetti/confetti.dart';
@@ -36,9 +37,12 @@ class HomePageState extends State<HomePage> {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final size = MediaQuery.of(context).size;
     // Adaptive sizes
-    final titleFontSize = size.width * 0.055;
-    final subtitleFontSize = size.width * 0.04;
-    final iconSize = size.width * 0.055;
+    final titleFontSize =
+        clampDouble(size.width * 0.055, 16, 24); // min: 16, max: 24
+    final subtitleFontSize =
+        clampDouble(size.width * 0.04, 12, 18); // min: 12, max: 18
+    final iconSize =
+        clampDouble(size.width * 0.055, 16, 24); // min: 16, max: 24
 
     return Scaffold(
       appBar: AppBar(
@@ -128,8 +132,8 @@ class HomePageState extends State<HomePage> {
   Widget _buildFloatingActionButton(
       BuildContext context, Size size, double iconSize) {
     return SizedBox(
-      height: size.width * 0.16,
-      width: size.width * 0.16,
+      height: clampDouble(size.width * 0.16, 56, 72),
+      width: clampDouble(size.width * 0.16, 56, 72),
       child: FloatingActionButton(
         onPressed: () => Navigator.push(
           context,

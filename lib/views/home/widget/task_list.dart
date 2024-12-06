@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlflitetodo/theme/app_pallete.dart';
@@ -24,32 +25,38 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final clampedPadding = clampDouble(padding, 8, 24);
+
     return Consumer<TaskViewModel>(
       builder: (context, taskViewModel, child) {
         return LayoutBuilder(
           builder: (context, constraints) {
             return ListView.builder(
-              padding: EdgeInsets.all(padding),
+              padding: EdgeInsets.all(clampedPadding),
               itemCount: taskViewModel.tasks.length,
               itemBuilder: (context, index) {
                 final task = taskViewModel.tasks[index];
                 return Padding(
-                  padding: EdgeInsets.only(bottom: padding * 0.5),
+                  padding: EdgeInsets.only(bottom: clampedPadding * 0.5),
                   child: GestureDetector(
                     onLongPress: () => onTaskLongPress(context, task),
-                    child: AspectRatio(
-                      aspectRatio: Responsive.isDesktop(context)
-                          ? 8
-                          : Responsive.isTablet(context)
-                              ? 6
-                              : 4,
-                      child: TaskItem(
-                        task: task,
-                        index: index,
-                        size: size,
-                        padding: padding,
-                        iconSize: iconSize,
-                        taskFontSize: taskFontSize,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxHeight: 120),
+                      child: AspectRatio(
+                        aspectRatio: Responsive.isDesktop(context)
+                            ? 8
+                            : Responsive.isTablet(context)
+                                ? 6
+                                : 4,
+                        child: TaskItem(
+                          task: task,
+                          index: index,
+                          size: size,
+                          padding: clampedPadding,
+                          iconSize: clampDouble(iconSize, 16, 24),
+                          taskFontSize: clampDouble(taskFontSize, 12, 18),
+                          onTaskLongPress: onTaskLongPress,
+                        ),
                       ),
                     ),
                   ),
@@ -79,27 +86,35 @@ class TaskItem extends StatelessWidget {
     required this.padding,
     required this.iconSize,
     required this.taskFontSize,
+    required this.onTaskLongPress,
   });
+
+  final Function(BuildContext, Task) onTaskLongPress;
 
   @override
   Widget build(BuildContext context) {
     final taskViewModel = Provider.of<TaskViewModel>(context, listen: false);
+    final borderRadius = clampDouble(size.width * 0.03, 8, 16);
+    final containerWidth = clampDouble(size.width * 0.9, 280, 800);
+    final numberSize = clampDouble(size.width * 0.06, 24, 36);
+    final checkboxScale = clampDouble(size.width * 0.0028, 0.8, 1.2);
 
     return Container(
+      constraints: BoxConstraints(maxWidth: containerWidth),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(size.width * 0.03),
+        borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
             spreadRadius: 1,
-            blurRadius: size.width * 0.01,
+            blurRadius: clampDouble(size.width * 0.01, 2, 8),
             offset: const Offset(0, 3),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(size.width * 0.03),
+        borderRadius: BorderRadius.circular(borderRadius),
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: padding,
@@ -109,8 +124,8 @@ class TaskItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                width: size.width * 0.06,
-                height: size.width * 0.06,
+                width: numberSize,
+                height: numberSize,
                 alignment: Alignment.center,
                 child: FittedBox(
                   child: Text(
@@ -150,7 +165,7 @@ class TaskItem extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (task.status == 1) {
-                    // Implement delete task functionality
+                    onTaskLongPress(context, task);
                   } else {
                     Navigator.push(
                       context,
@@ -162,7 +177,7 @@ class TaskItem extends StatelessWidget {
                 },
               ),
               Transform.scale(
-                scale: size.width * 0.0028,
+                scale: checkboxScale,
                 child: Checkbox(
                   value: task.status == 1,
                   onChanged: (value) =>

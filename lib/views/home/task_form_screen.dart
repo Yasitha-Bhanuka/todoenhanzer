@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sqlflitetodo/theme/responsive.dart';
@@ -48,15 +49,26 @@ class TaskFormScreenState extends State<TaskFormScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    // Responsive sizes
-    final padding = size.width * 0.04;
-    final titleFontSize = size.width * 0.045;
-    final spacing = size.height * 0.025;
+    // Responsive sizes with clamped values
+    final padding = clampDouble(size.width * 0.04, 16, 32); // min: 16, max: 32
+    final titleFontSize =
+        clampDouble(size.width * 0.045, 16, 24); // min: 16, max: 24
+    final spacing = clampDouble(size.width * 0.025, 16, 32); // min: 16, max: 32
+
+    // Clamped form width based on device type
     final formWidth = Responsive.isDesktop(context)
-        ? size.width * 0.4
+        ? clampDouble(size.width * 0.4, 400, 400) // Desktop: min: 400, max: 800
         : Responsive.isTablet(context)
-            ? size.width * 0.6
-            : size.width * 0.9;
+            ? clampDouble(
+                size.width * 0.6, 300, 400) // Tablet: min: 300, max: 600
+            : clampDouble(
+                size.width * 0.9, 280, 400); // Mobile: min: 280, max: 400
+
+    // Clamped button widths
+    final buttonWidth =
+        clampDouble(size.width * 0.25, 100, 150); // min: 100, max: 200
+    final buttonSpacing =
+        clampDouble(size.width * 0.02, 8, 8); // min: 8, max: 16
 
     return Scaffold(
       appBar: AppBar(
@@ -76,9 +88,14 @@ class TaskFormScreenState extends State<TaskFormScreen> {
               children: [
                 AspectRatio(
                   aspectRatio: Responsive.isDesktop(context) ? 6 : 4,
-                  child: CustomField(
-                    hintText: 'Task Content',
-                    controller: _contentController,
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxHeight: 200, // Maximum height for input field
+                    ),
+                    child: CustomField(
+                      hintText: 'Task Content',
+                      controller: _contentController,
+                    ),
                   ),
                 ),
                 SizedBox(height: spacing),
@@ -86,15 +103,15 @@ class TaskFormScreenState extends State<TaskFormScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
-                      width: size.width * 0.25,
+                      width: buttonWidth,
                       child: CustomCancelButton(
                         buttonText: "Cancel",
                         onTap: () => Navigator.pop(context),
                       ),
                     ),
-                    SizedBox(width: size.width * 0.02),
+                    SizedBox(width: buttonSpacing),
                     SizedBox(
-                      width: size.width * 0.25,
+                      width: buttonWidth,
                       child: CustomSaveButton(
                         buttonText: "Save",
                         onTap: _saveTask,
