@@ -54,35 +54,24 @@ class CustomCancelButton extends StatelessWidget {
     final borderColor = isDarkMode ? Colors.white : Colors.black;
     final textColor = isDarkMode ? Colors.white : Colors.black;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent, // Set the background color to transparent
-        borderRadius: BorderRadius.circular(7),
-        border: Border.all(color: borderColor, width: 2), // Add a border
+    return OutlinedButton(
+      onPressed: onTap,
+      style: OutlinedButton.styleFrom(
+        fixedSize: const Size(100, 55),
+        backgroundColor: Colors.transparent, // Transparent background
+        side: BorderSide(color: borderColor, width: 2), // Border styling
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(7), // Rounded corners
+        ),
       ),
-      child: ElevatedButton(
-          onPressed: onTap,
-          style: ElevatedButton.styleFrom(
-            fixedSize: const Size(97, 52),
-            backgroundColor: Colors
-                .transparent, // Set the button background color to transparent
-            shadowColor: Colors.transparent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(7),
-              side: BorderSide(
-                color: borderColor,
-                width: 2,
-              ),
-            ),
-          ),
-          child: Text(
-            buttonText,
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: textColor, // Set the text color based on the theme
-            ),
-          )),
+      child: Text(
+        buttonText,
+        style: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+          color: textColor, // Text color based on theme
+        ),
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sqlflitetodo/views/Widget/custom_button.dart';
-import 'package:sqlflitetodo/views/Widget/custom_field.dart';
+import 'package:sqlflitetodo/views/widget/custom_button.dart';
+import 'package:sqlflitetodo/views/widget/custom_field.dart';
 import '../models/task.dart';
 import '../view_models/task_view_model.dart';
 
