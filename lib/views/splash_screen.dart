@@ -11,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  bool showNewSplashScreen = true;
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
 
@@ -20,7 +19,7 @@ class SplashScreenState extends State<SplashScreen>
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 6000),
       vsync: this,
     );
 
@@ -28,13 +27,7 @@ class SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        showNewSplashScreen = false;
-      });
-    });
-
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 7), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const HomePage()),
@@ -70,25 +63,35 @@ class SplashScreenState extends State<SplashScreen>
 
     return Scaffold(
       body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: showNewSplashScreen
-              ? _newSplashScreen(logoSize, titleSize, spacing)
-              : _oldSplashScreen(size),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: _splashScreenContent(logoSize, titleSize, spacing),
+            ),
+            SizedBox(height: spacing),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return LinearProgressIndicator(
+                    value: _controller.value,
+                    backgroundColor: Colors.grey[300],
+                    color: Theme.of(context).primaryColor,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget _oldSplashScreen(Size size) {
-    return SizedBox(
-      width: size.width * 0.1,
-      height: size.width * 0.1,
-      child: const CircularProgressIndicator(),
-    );
-  }
-
-  Widget _newSplashScreen(double logoSize, double titleSize, double spacing) {
+  Widget _splashScreenContent(
+      double logoSize, double titleSize, double spacing) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -98,6 +101,21 @@ class SplashScreenState extends State<SplashScreen>
           'Todo App',
           style: TextStyle(
             fontSize: titleSize,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: spacing),
+        Text(
+          'Manage your tasks efficiently',
+          style: TextStyle(
+            fontSize: titleSize * 0.6,
+          ),
+        ),
+        SizedBox(height: spacing),
+        Text(
+          'Get started now!',
+          style: TextStyle(
+            fontSize: titleSize * 0.6,
             fontWeight: FontWeight.bold,
           ),
         ),
