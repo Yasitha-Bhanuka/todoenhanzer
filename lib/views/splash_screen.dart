@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqlflitetodo/core/responsive.dart';
-import 'home_page.dart';
+import 'home/home_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
