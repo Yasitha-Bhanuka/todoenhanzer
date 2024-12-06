@@ -16,7 +16,28 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Task List'),
+        title: Column(
+          children: [
+            const Text('Task List'),
+            Consumer<TaskViewModel>(
+              builder: (context, taskViewModel, child) {
+                final totalTasks = taskViewModel.tasks.length;
+                final incompleteTasks = taskViewModel.tasks
+                    .where((task) => task.status == 0)
+                    .length;
+
+                return Text(
+                  'Total: $totalTasks | Incomplete: $incompleteTasks',
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodySmall?.color,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
         actions: [
           IconButton(
             icon: Icon(
@@ -42,12 +63,12 @@ class HomePage extends StatelessWidget {
       body: Consumer<TaskViewModel>(
         builder: (context, taskViewModel, child) {
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(10),
             itemCount: taskViewModel.tasks.length,
             itemBuilder: (context, index) {
               final task = taskViewModel.tasks[index];
               return Container(
-                margin: const EdgeInsets.only(bottom: 12),
+                margin: const EdgeInsets.only(bottom: 10),
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(12),
