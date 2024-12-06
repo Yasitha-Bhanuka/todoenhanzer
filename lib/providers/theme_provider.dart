@@ -50,7 +50,7 @@ class ThemeProvider extends ChangeNotifier {
   static OutlineInputBorder _border(Color color) => OutlineInputBorder(
         borderSide: BorderSide(
           color: color,
-          width: 3,
+          width: 2,
         ),
         borderRadius: BorderRadius.circular(10),
       );
@@ -73,6 +73,9 @@ class ThemeProvider extends ChangeNotifier {
         return const Color.fromARGB(49, 52, 51, 67);
       }),
     ),
+    textTheme: const TextTheme(
+      bodyMedium: TextStyle(color: Colors.black),
+    ),
   );
 
   static final ThemeData _darkTheme = ThemeData.dark().copyWith(
@@ -93,6 +96,9 @@ class ThemeProvider extends ChangeNotifier {
         }
         return Pallete.borderColor;
       }),
+    ),
+    textTheme: const TextTheme(
+      bodyMedium: TextStyle(color: Colors.white),
     ),
   );
 }

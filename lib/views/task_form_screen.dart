@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqlflitetodo/views/Widget/custom_button.dart';
 import 'package:sqlflitetodo/views/Widget/custom_field.dart';
 import '../models/task.dart';
 import '../view_models/task_view_model.dart';
@@ -63,13 +64,15 @@ class TaskFormScreenState extends State<TaskFormScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
+                  CustomCancelButton(
+                      buttonText: "Cancel",
+                      onTap: () => Navigator.pop(context)),
+                  const SizedBox(
+                    width: 3,
                   ),
-                  ElevatedButton(
-                    onPressed: _saveTask,
-                    child: const Text('Save'),
+                  CustomSaveButton(
+                    buttonText: "Save",
+                    onTap: () => _saveTask(),
                   ),
                 ],
               ),

@@ -20,6 +20,8 @@ class CustomField extends StatelessWidget {
       validator: (val) {
         if (val!.trim().isEmpty) {
           return 'Please enter $hintText';
+        } else if (val.trim().length > 50) {
+          return 'Please remove ${50 - val.trim().length} characters.';
         }
         return null;
       },
