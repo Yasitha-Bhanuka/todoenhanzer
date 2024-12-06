@@ -53,7 +53,7 @@ class TaskFormScreenState extends State<TaskFormScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomField(
                 hintText: 'Task Content',

@@ -58,7 +58,7 @@ class ThemeProvider extends ChangeNotifier {
   static final ThemeData _lightTheme = ThemeData.light().copyWith(
     iconTheme: const IconThemeData(color: Pallete.gradient2),
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: const EdgeInsets.all(25),
+      contentPadding: const EdgeInsets.all(18),
       enabledBorder: _border(Pallete.borderColor),
       focusedBorder: _border(Pallete.gradient2),
       errorBorder: _border(Pallete.errorColor),
@@ -79,7 +79,7 @@ class ThemeProvider extends ChangeNotifier {
     scaffoldBackgroundColor: Pallete.backgroundColor,
     iconTheme: const IconThemeData(color: Pallete.gradient1),
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: const EdgeInsets.all(25),
+      contentPadding: const EdgeInsets.all(18),
       enabledBorder: _border(Pallete.borderColor),
       focusedBorder: _border(Pallete.gradient1),
       errorBorder: _border(Pallete.errorColor),
