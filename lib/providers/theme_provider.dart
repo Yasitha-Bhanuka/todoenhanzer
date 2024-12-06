@@ -6,15 +6,14 @@ class Pallete {
   static const greenColor = Colors.green;
   static const subtitleText = Color(0xffa7a7a7);
   static const inactiveBottomBarItemColor = Color(0xffababab);
-
   static const Color backgroundColor = Color.fromRGBO(18, 18, 18, 1);
   static const Color gradient1 = Color.fromRGBO(187, 63, 221, 1);
   static const Color gradient2 = Color.fromRGBO(251, 109, 169, 1);
   static const Color gradient3 = Color.fromRGBO(255, 159, 124, 1);
   static const Color borderColor = Color.fromRGBO(52, 51, 67, 1);
-  static const Color whiteColor = Colors.white;
+  static const Color whiteColor = Color(0xFFF5F5F5); // A softer white color
   static const Color greyColor = Colors.grey;
-  static const Color errorColor = Colors.redAccent;
+  static const Color errorColor = Color.fromARGB(255, 255, 0, 0);
   static const Color transparentColor = Colors.transparent;
   static const Color inactiveSeekColor = Colors.white38;
 }
@@ -57,19 +56,43 @@ class ThemeProvider extends ChangeNotifier {
       );
 
   static final ThemeData _lightTheme = ThemeData.light().copyWith(
+    iconTheme: const IconThemeData(color: Pallete.gradient2),
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: const EdgeInsets.all(27),
+      contentPadding: const EdgeInsets.all(25),
       enabledBorder: _border(Pallete.borderColor),
       focusedBorder: _border(Pallete.gradient2),
+      errorBorder: _border(Pallete.errorColor),
+      focusedErrorBorder: _border(Pallete.errorColor),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      checkColor: WidgetStateProperty.all(Pallete.whiteColor),
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return Pallete.gradient2;
+        }
+        return const Color.fromARGB(49, 52, 51, 67);
+      }),
     ),
   );
 
   static final ThemeData _darkTheme = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Pallete.backgroundColor,
+    iconTheme: const IconThemeData(color: Pallete.gradient1),
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding: const EdgeInsets.all(27),
+      contentPadding: const EdgeInsets.all(25),
       enabledBorder: _border(Pallete.borderColor),
-      focusedBorder: _border(Pallete.gradient2),
+      focusedBorder: _border(Pallete.gradient1),
+      errorBorder: _border(Pallete.errorColor),
+      focusedErrorBorder: _border(Pallete.errorColor),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      checkColor: WidgetStateProperty.all(Pallete.whiteColor),
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return Pallete.gradient1;
+        }
+        return Pallete.borderColor;
+      }),
     ),
   );
 }

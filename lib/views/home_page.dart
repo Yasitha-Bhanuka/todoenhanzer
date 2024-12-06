@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo List'),
+        title: const Text('Task List'),
         actions: [
           IconButton(
             icon: Icon(
@@ -43,13 +43,18 @@ class HomePage extends StatelessWidget {
                     decoration: task.status == 1
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
+                    decorationColor:
+                        task.status == 1 ? Pallete.greenColor : null,
                   ),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.edit),
+                      icon: Icon(
+                        Icons.edit,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -63,6 +68,7 @@ class HomePage extends StatelessWidget {
                         task,
                         value ?? false,
                       ),
+                      activeColor: Theme.of(context).iconTheme.color,
                     ),
                   ],
                 ),

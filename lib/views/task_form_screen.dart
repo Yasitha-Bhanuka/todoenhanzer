@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqlflitetodo/views/Widget/custom_field.dart';
 import '../models/task.dart';
 import '../view_models/task_view_model.dart';
 
@@ -52,16 +53,11 @@ class TaskFormScreenState extends State<TaskFormScreen> {
         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
+              CustomField(
+                hintText: 'Task Content',
                 controller: _contentController,
-                decoration: const InputDecoration(labelText: 'Task Content'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter task content';
-                  }
-                  return null;
-                },
               ),
               const SizedBox(height: 20),
               Row(

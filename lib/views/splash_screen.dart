@@ -9,10 +9,18 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
+  bool showNewSplashScreen = true;
+
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        showNewSplashScreen = false;
+      });
+    });
+
+    Future.delayed(const Duration(seconds: 5), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const HomePage()),
@@ -23,10 +31,31 @@ class SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: showNewSplashScreen ? _newSplashScreen() : _oldSplashScreen(),
       ),
+    );
+  }
+
+  Widget _oldSplashScreen() {
+    return const CircularProgressIndicator();
+  }
+
+  Widget _newSplashScreen() {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        FlutterLogo(size: 100),
+        SizedBox(height: 20),
+        Text(
+          'Todo App',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
