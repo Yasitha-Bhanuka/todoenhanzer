@@ -14,11 +14,14 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Task List'),
         actions: [
           IconButton(
             icon: Icon(
-                themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+              themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+              color: Theme.of(context).iconTheme.color,
+            ),
             onPressed: () => themeProvider.toggleTheme(),
           ),
         ],
@@ -28,7 +31,12 @@ class HomePage extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => const TaskFormScreen()),
         ),
-        child: const Icon(Icons.add),
+        backgroundColor: Theme.of(context).iconTheme.color,
+        shape: const CircleBorder(),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       body: Consumer<TaskViewModel>(
         builder: (context, taskViewModel, child) {
