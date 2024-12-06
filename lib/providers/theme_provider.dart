@@ -56,6 +56,17 @@ class ThemeProvider extends ChangeNotifier {
       );
 
   static final ThemeData _lightTheme = ThemeData.light().copyWith(
+    scaffoldBackgroundColor: Pallete.whiteColor,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Pallete.whiteColor,
+      elevation: 0,
+      iconTheme: IconThemeData(color: Pallete.gradient2),
+      titleTextStyle: TextStyle(
+        color: Pallete.backgroundColor,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     iconTheme: const IconThemeData(color: Pallete.gradient2),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(18),
@@ -73,13 +84,20 @@ class ThemeProvider extends ChangeNotifier {
         return const Color.fromARGB(49, 52, 51, 67);
       }),
     ),
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(color: Colors.black),
-    ),
   );
 
   static final ThemeData _darkTheme = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Pallete.backgroundColor,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Pallete.backgroundColor,
+      elevation: 0,
+      iconTheme: IconThemeData(color: Pallete.gradient1),
+      titleTextStyle: TextStyle(
+        color: Pallete.whiteColor,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     iconTheme: const IconThemeData(color: Pallete.gradient1),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(18),
@@ -97,8 +115,8 @@ class ThemeProvider extends ChangeNotifier {
         return Pallete.borderColor;
       }),
     ),
-    textTheme: const TextTheme(
-      bodyMedium: TextStyle(color: Colors.white),
-    ),
+    // textTheme: const TextTheme(
+    //   bodyMedium: TextStyle(color: Colors.white),
+    // ),
   );
 }

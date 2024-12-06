@@ -41,46 +41,77 @@ class HomePage extends StatelessWidget {
       body: Consumer<TaskViewModel>(
         builder: (context, taskViewModel, child) {
           return ListView.builder(
+            padding: const EdgeInsets.all(16),
             itemCount: taskViewModel.tasks.length,
             itemBuilder: (context, index) {
               final task = taskViewModel.tasks[index];
-              return ListTile(
-                title: Text(
-                  task.content,
-                  style: TextStyle(
-                    decoration: task.status == 1
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none,
-                    decorationColor:
-                        task.status == 1 ? Pallete.greenColor : null,
-                  ),
-                ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.edit,
-                        color: Theme.of(context).iconTheme.color,
-                      ),
-                      onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TaskFormScreen(task: task),
-                        ),
-                      ),
-                    ),
-                    Checkbox(
-                      value: task.status == 1,
-                      onChanged: (value) => taskViewModel.updateTaskStatus(
-                        task,
-                        value ?? false,
-                      ),
-                      activeColor: Theme.of(context).iconTheme.color,
+              return Container(
+                margin: const EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 6,
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
-                onLongPress: () => _confirmDeleteTask(context, task),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 6,
+                    ),
+                    title: Text(
+                      task.content,
+                      style: TextStyle(
+                        decoration: task.status == 1
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                        decorationColor:
+                            task.status == 1 ? Pallete.greenColor : null,
+                        fontSize: 16,
+                      ),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          padding: const EdgeInsets.only(left: 20),
+                          icon: Icon(
+                            Icons.edit,
+                            color: Theme.of(context).iconTheme.color,
+                            size: 22,
+                          ),
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TaskFormScreen(task: task),
+                            ),
+                          ),
+                        ),
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            value: task.status == 1,
+                            onChanged: (value) => taskViewModel
+                                .updateTaskStatus(task, value ?? false),
+                            activeColor: Theme.of(context).iconTheme.color,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    onLongPress: () => _confirmDeleteTask(context, task),
+                  ),
+                ),
               );
             },
           );

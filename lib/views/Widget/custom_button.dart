@@ -58,10 +58,10 @@ class CustomCancelButton extends StatelessWidget {
       onPressed: onTap,
       style: OutlinedButton.styleFrom(
         fixedSize: const Size(100, 55),
-        backgroundColor: Colors.transparent, // Transparent background
-        side: BorderSide(color: borderColor, width: 2), // Border styling
+        backgroundColor: Colors.transparent,
+        side: BorderSide(color: borderColor, width: 2),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(7), // Rounded corners
+          borderRadius: BorderRadius.circular(7),
         ),
       ),
       child: Text(
@@ -69,7 +69,7 @@ class CustomCancelButton extends StatelessWidget {
         style: TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w600,
-          color: textColor, // Text color based on theme
+          color: textColor,
         ),
       ),
     );
