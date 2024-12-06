@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
         title: Column(
           children: [
             const Text('Task List'),
+            const SizedBox(height: 4),
             Consumer<TaskViewModel>(
               builder: (context, taskViewModel, child) {
                 final totalTasks = taskViewModel.tasks.length;
@@ -27,7 +28,7 @@ class HomePage extends StatelessWidget {
                     .length;
 
                 return Text(
-                  'Total: $totalTasks | Incomplete: $incompleteTasks',
+                  'Total: $totalTasks  |  Incomplete: $incompleteTasks',
                   style: TextStyle(
                     color: Theme.of(context).textTheme.bodySmall?.color,
                     fontSize: 14,
