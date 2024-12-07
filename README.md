@@ -1,4 +1,5 @@
 # 📱 Taskenhanz - Task Management App - MVVM
+# 📱 Taskenhanz - Task Management App - MVVM
 
 A modern and efficient Flutter-based task management application with MVVM architecture, SQLite local storage and beautiful UI.
 
