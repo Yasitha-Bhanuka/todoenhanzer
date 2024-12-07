@@ -48,7 +48,7 @@ lib/
 ├── theme/            # App theming
 ├── views/            # UI screens
 ├── view_models/      # Manages business logic
-├── widgets/          # Reusable widgets
+├── widgets/         # Reusable widgets
 └── [main.dart](http://_vscodecontentref_/1)        # App entry point
 ```
 
