@@ -1,6 +1,6 @@
-# 📱 Taskenhanz - Task Management App
+# 📱 Taskenhanz - Task Management App - MVVM
 
-A modern and efficient Flutter-based task management application with SQLite local storage and beautiful UI.
+A modern and efficient Flutter-based task management application with MVVM architecture, SQLite local storage and beautiful UI.
 
 ## ✨ Features
 
@@ -21,6 +21,7 @@ A modern and efficient Flutter-based task management application with SQLite loc
 - **State Management**: Provider ^6.1.2
 - **Local Storage**: Shared Preferences ^2.3.3
 - **Architecture**: MVVM (Model-View-ViewModel)
+- **Animations**: Confetti (confetti: ^0.8.0)
 
 ## 📦 Dependencies
 
@@ -42,12 +43,13 @@ lib/
 ├── models/           # Data models
 ├── providers/        # State management
 ├── repositories/     # Data repositories
-├── services/        # Business logic services
-├── theme/           # App theming
-├── views/           # UI screens
-├── view_models/     # Manages business logic
-├── widgets/         # Reusable widgets
+├── services/         # Business logic services
+├── theme/            # App theming
+├── views/            # UI screens
+├── view_models/      # Manages business logic
+├── widgets/          # Reusable widgets
 └── [main.dart](http://_vscodecontentref_/1)        # App entry point
+
 
 ## 🚀 Getting Started
 
@@ -85,11 +87,16 @@ Make sure you have Flutter and Dart SDK installed on your machine. For more info
 
 Here are some screenshots of the app in action:
 
-![Home Screen](screenshots/home_screen.png)
-![Task Details](screenshots/task_details.png)
-![Dark Mode](screenshots/dark_mode.png)
-![App Icon](screenshots/dark_mode.png)
-![Light Mode]
+<img src="assets/logo.icon.jpg" alt="Logo Icon" height="400">
+<img src="assets/lightmodesplash.jpg" alt="Lightmode Splash Screen" height="400">
+<img src="assets/darkmodesplash.jpg" alt="Darkmode Splash Screen" height="400">
+<img src="assets/lightmodelist.jpg" alt="Lightmode Home" height="400">
+<img src="assets/darkmodehome.jpg" alt="Darkmode Home" height="400">
+<img src="assets/addtask.jpg" alt="Add Task" height="400">
+<img src="assets/lightmodelist.jpg.jpg" alt="Add Task" height="400">
+<img src="assets/edit.jpg" alt="Add Task" height="400">
+<img src="assets/delete.jpg" alt="Delete Task" height="400">
+<img src="assets/congradulationsdone.jpg" alt="Delete Task" height="400">
 
 ## 🌟 Core Features
 
