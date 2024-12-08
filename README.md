@@ -13,6 +13,31 @@ A modern and efficient Flutter-based task management application with MVVM archi
 - 📱 Cross-platform support (iOS & Android)
 - 🎯 Adaptive design for different screen sizes
 
+## 📽 Project Demo Video
+- **Load the splash screen with animation**
+- **Switching themes using AppBar button**
+- **Add the tasks**
+- **Delete existing tasks clicking bin icon when appeared**
+- **Edit the tasks**
+- **Delete existing tasks using longpressed on the task message**
+  
+https://github.com/user-attachments/assets/cf303b66-4588-4491-a250-a228c2ebe179
+
+- **Change the theme**
+- **Closed the app**
+- **You can see the theme changes saved local memory**
+- **It is shown usage of shared preferences**
+
+https://github.com/user-attachments/assets/e8d3f3e3-c518-4a31-88ef-f2fbb5b94a67
+
+- **Fill the specific complete task checkbox**
+- **A green line is drawn across the task in relation to the filled checkboxes.**
+- **The text on the app bar clearly explains how to complete the task list.**
+- **After all the tasks are completed, an animation will be seen.**
+- **Use for the animation package called confetti**
+
+https://github.com/user-attachments/assets/b5da0b1b-232a-4455-b212-8350b4cbf214
+
 ## 🛠️ Tech Stack
 
 - **Framework**: Flutter (SDK ^3.5.4)
